@@ -5,7 +5,10 @@ const app = express();
 
 connectDB();
 
-app.get('/', (res, req) => res.send('API running'));
+app.get('/', (req, res) => res.send('API running'));
+
+//Access user route
+app.use('/api/users', require('./routes/api/users'));
 
 const PORT = process.env.PORT || 5000;
 
