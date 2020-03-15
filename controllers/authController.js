@@ -1,17 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 
 const User = require('../models/User');
 
 exports.register = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     const {name, email, password } = req.body;
 
     try {
@@ -57,11 +51,6 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     const {email, password } = req.body;
 
     try {
