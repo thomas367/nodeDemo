@@ -8,8 +8,8 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useCreateIndex: true
         });
-        
-        console.log('Mongo connected...')
+
+        console.log('Mongo connected...');
     } catch (err) {
         console.log(err.message);
     }
