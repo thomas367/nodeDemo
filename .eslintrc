@@ -1,29 +1,32 @@
 {
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  },
-  "plugins": ["react", "prettier"],
-  "rules": {
-    "no-plusplus": 0,
-    "no-underscore-dangle": 0,
-    "no-mixed-operators": 0,
-    "class-methods-use-this": 0,
-    "indent": [
-      "error",
-      4
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "plugins": ["react", "prettier"],
+    "rules": {
+        "no-plusplus": 0,
+        "no-underscore-dangle": 0,
+        "no-mixed-operators": 0,
+        "class-methods-use-this": 0,
+        "indent": ["error", 4],
+        "comma-dangle": 0
+    },
+    "extends": [
+        "airbnb-base",
+        "plugin:react/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "prettier",
+        "plugin:compat/recommended"
     ],
-    "comma-dangle": 0
-  },
-  "extends": ["airbnb", "plugin:react/recommended", "plugin:import/errors",
-    "plugin:import/warnings"],
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.dev.js"
-      }
+    "settings": {
+        "import/resolver": {
+            "webpack": {
+                "config": "webpack.config.dev.js"
+            }
+        }
     }
-  }
 }
