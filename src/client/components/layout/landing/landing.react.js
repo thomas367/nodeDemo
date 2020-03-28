@@ -1,28 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from 'client/components/layout/landing/landing.scss';
+import classNames from 'classnames/bind';
 
-const Landing = () => {
-    return (
-        <section className={styles.landing}>
-            <div className={styles.darkOverlay}>
-                <div className={styles.landingInner}>
-                    <h1 className={styles.header}>Developer Connector</h1>
-                    <p className={styles.introMessag}>
-                        Create a developer profile/portfolio, share posts and get help from other developers
-                    </p>
-                    <div className="buttons">
-                        <Link to="/register" className="btn btn-primary">
-                            Sign Up
-                        </Link>
-                        <Link to="/login" className="btn btn-light">
-                            Login
-                        </Link>
-                    </div>
+const cx = classNames.bind(styles);
+
+const Landing = () => (
+    <div className={styles.landing}>
+        <div className={styles.darkOverlay}>
+            <div className={styles.landingInner}>
+                <h1 className={styles.header}>Developer Connector</h1>
+                <p className={styles.introMessag}>
+                    Create a developer profile/portfolio, share posts and get help from other developers
+                </p>
+                <div className={styles.buttonsWrapper}>
+                    <Link to="/register" className={cx('btn', 'btnPrimary')}>
+                        Sign Up
+                    </Link>
+                    <Link to="/login" className={cx('btn', 'btnLight')}>
+                        Login
+                    </Link>
                 </div>
             </div>
-        </section>
-    );
-};
+        </div>
+    </div>
+);
 
 export default Landing;
