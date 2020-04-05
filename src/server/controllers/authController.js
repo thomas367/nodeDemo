@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 
 const User = require('../models/User');
 
@@ -12,7 +12,7 @@ exports.register = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (user) {
-            return res.status(400).json({ errors: [{ message: 'User already exists' }] });
+            return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
         }
 
         const avatar = gravatar.url(email, {
@@ -34,7 +34,7 @@ exports.register = async (req, res) => {
             }
         };
 
-        jwt.sign(payload, process.env.jwtSecret, { expiresIn: 36000 }, (err, token) => {
+        jwt.sign(payload, process.env.jwtSecret, { expiresIn: 3600 }, (err, token) => {
             if (err) throw err;
             res.json({ token });
         });
@@ -51,13 +51,13 @@ exports.login = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(400).json({ errors: [{ message: 'Invalid Credentials' }] });
+            return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
         }
 
         const isMatched = await bcrypt.compare(password, user.password);
 
         if (!isMatched) {
-            return res.status(400).json({ errors: [{ message: 'Invalid Credentials' }] });
+            return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
         }
 
         const payload = {
@@ -66,7 +66,7 @@ exports.login = async (req, res) => {
             }
         };
 
-        jwt.sign(payload, process.env.jwtSecret, { expiresIn: 36000 }, (err, token) => {
+        jwt.sign(payload, process.env.jwtSecret, { expiresIn: 3600 }, (err, token) => {
             if (err) throw err;
             res.json({ token });
         });
