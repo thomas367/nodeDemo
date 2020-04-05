@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 
 const connectDB = async () => {
     try {
@@ -8,8 +8,8 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useCreateIndex: true
         });
-        
-        console.log('Mongo connected...')
+
+        console.log('Mongo connected...');
     } catch (err) {
         console.log(err.message);
     }

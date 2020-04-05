@@ -1,0 +1,34 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 32px;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    border-bottom: solid 1px #3f51b5;
+    opacity: 0.9;
+    background: #343a40;
+    color: #fff;
+}
+
+.bannerLink {
+    color: #fff;
+    text-decoration: none;
+}
+
+.linksWrapper {
+    display: flex;
+}
+
+.links {
+    color: #fff;
+    padding: 7px;
+    margin: 0 4px;
+    text-decoration: none;
+
+    &:hover {
+        color: #98a7ff;
+    }
+}
