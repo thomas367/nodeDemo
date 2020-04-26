@@ -20,6 +20,18 @@ class Api {
             return response;
         });
     }
+
+    getProfile(token) {
+        return this.api
+            .get('/api/profile/me', {
+                headers: {
+                    'x-auth-token': token
+                }
+            })
+            .then(function(response) {
+                return response;
+            });
+    }
 }
 
 export default new Api();
