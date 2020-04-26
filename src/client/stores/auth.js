@@ -31,7 +31,6 @@ class Auth {
         return API.register(data)
             .then(function(response) {
                 Common.setToken(response.data.token);
-                // this.isAuthenticated = true;
                 
             })
             .catch(function(err) {
@@ -47,11 +46,11 @@ class Auth {
             });
     }
 
-    // @action.bound
-    // logout() {
-    //     Common.setToken(undefined);
-    //     // return Promise.resolve();
-    // }
+    @action.bound
+    logout() {
+        Common.setToken(undefined);
+        // return Promise.resolve();
+    }
 }
 
 export default new Auth();
