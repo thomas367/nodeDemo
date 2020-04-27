@@ -10,15 +10,11 @@ class Api {
     }
 
     register(data) {
-        return this.api.post('/api/register', data).then(function(response) {
-            return response;
-        });
+        return this.api.post('/api/register', data).then((response) => response);
     }
 
     login(data) {
-        return this.api.post('/api/login', data).then(function(response) {
-            return response;
-        });
+        return this.api.post('/api/login', data).then((response) => response);
     }
 
     getProfile(token) {
@@ -28,9 +24,7 @@ class Api {
                     'x-auth-token': token
                 }
             })
-            .then(function(response) {
-                return response;
-            });
+            .then((response) => response);
     }
 }
 

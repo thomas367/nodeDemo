@@ -11,7 +11,7 @@ const stores = {
     common,
     auth,
     profile
-}
+};
 
 ReactDOM.render(
     <Router>

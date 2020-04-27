@@ -7,7 +7,7 @@ import { Button, TextField } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-const Register = props => {
+const Register = (props) => {
     const { inProgress, token, doRegister } = props;
 
     const [formData, setFormData] = React.useState({
@@ -17,15 +17,17 @@ const Register = props => {
         confirmPassword: ''
     });
 
-    const { name, email, password, confirmPassword } = formData;
+    const {
+        name, email, password, confirmPassword
+    } = formData;
 
-    const handleInput = e => {
+    const handleInput = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmitForm = e => {
+    const handleSubmitForm = (e) => {
         e.preventDefault();
-        const newUser = {name, email, password };
+        const newUser = { name, email, password };
         // console.log(newUser);
         doRegister(newUser);
     };
@@ -40,7 +42,7 @@ const Register = props => {
             <p className={styles.subheader}>
                 <FontAwesomeIcon icon={faUser} /> Create Your Account
             </p>
-            <form onSubmit={e => handleSubmitForm(e)}>
+            <form onSubmit={(e) => handleSubmitForm(e)}>
                 <div className={styles.formGroup}>
                     <TextField
                         type="text"
@@ -50,7 +52,7 @@ const Register = props => {
                         fullWidth
                         variant="outlined"
                         value={name}
-                        onChange={e => handleInput(e)}
+                        onChange={(e) => handleInput(e)}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -62,7 +64,7 @@ const Register = props => {
                         fullWidth
                         variant="outlined"
                         value={email}
-                        onChange={e => handleInput(e)}
+                        onChange={(e) => handleInput(e)}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -74,7 +76,7 @@ const Register = props => {
                         fullWidth
                         variant="outlined"
                         value={password}
-                        onChange={e => handleInput(e)}
+                        onChange={(e) => handleInput(e)}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -86,7 +88,7 @@ const Register = props => {
                         fullWidth
                         variant="outlined"
                         value={confirmPassword}
-                        onChange={e => handleInput(e)}
+                        onChange={(e) => handleInput(e)}
                     />
                 </div>
                 <Button type="submit" variant="contained" color="primary" disabled={inProgress}>
@@ -109,7 +111,7 @@ Register.propTypes = {
     doRegister: PropTypes.func
 };
 
-export default inject(stores => ({
+export default inject((stores) => ({
     inProgress: stores.auth.inProgress,
     doRegister: stores.auth.doRegister,
     token: stores.common.token

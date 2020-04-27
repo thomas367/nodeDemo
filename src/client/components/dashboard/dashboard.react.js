@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { inject, observer } from 'mobx-react';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
-const Dashboard = props => {
+const Dashboard = (props) => {
     const { getProfile, loading, profile } = props;
 
     useEffect(() => {
@@ -50,7 +50,7 @@ Dashboard.propTypes = {
     // error
 };
 
-export default inject(stores => ({
+export default inject((stores) => ({
     getProfile: stores.profile.getProfile,
     loading: stores.profile.loading,
     profile: stores.profile.profile
