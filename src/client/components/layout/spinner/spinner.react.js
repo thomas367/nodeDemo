@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 const Spinner = () => (
     <>
         <FontAwesomeIcon className={cx('icon', 'fa-spin')} icon={faSpinner} />
-    </>   
+    </>
 );
 
 export default Spinner;

@@ -1,4 +1,4 @@
-import { observable, action, decorate } from 'mobx';
+import { observable, action } from 'mobx';
 import Common from 'client/stores/common';
 import API from 'helpers/client/api';
 
@@ -9,10 +9,11 @@ class Auth {
     doLogin(data) {
         this.inProgress = true;
         return API.login(data)
-            .then(function(response) {
+            .then((response) => {
                 Common.setToken(response.data.token);
             })
-            .catch(function(err) {
+            .catch((err) => {
+                console.log(err.response);
                 // const errors = err.response.data.errors;
                 // if (errors) {
                 //     errors.forEach(error => {
@@ -29,11 +30,11 @@ class Auth {
     doRegister(data) {
         this.inProgress = true;
         return API.register(data)
-            .then(function(response) {
+            .then((response) => {
                 Common.setToken(response.data.token);
-                
             })
-            .catch(function(err) {
+            .catch((err) => {
+                console.log(err.response);
                 // const errors = err.response.data.errors;
                 // if (errors) {
                 //     errors.forEach(error => {

@@ -10,17 +10,18 @@
         "no-plusplus": 0,
         "no-underscore-dangle": 0,
         "no-mixed-operators": 0,
+        "no-console": 0,
         "class-methods-use-this": 0,
         "indent": ["error", 4],
-        "comma-dangle": 0
+        "comma-dangle": 0,
+        "linebreak-style": 0,
+        "lines-between-class-members": 0
     },
     "extends": [
         "airbnb-base",
         "plugin:react/recommended",
         "plugin:import/errors",
-        "plugin:import/warnings",
-        "prettier",
-        "plugin:compat/recommended"
+        "plugin:import/warnings"
     ],
     "settings": {
         "import/resolver": {

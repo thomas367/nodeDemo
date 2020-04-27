@@ -7,7 +7,7 @@ import { Button, TextField } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-const Login = props => {
+const Login = (props) => {
     const { inProgress, token, doLogin } = props;
 
     const [formData, setFormData] = React.useState({
@@ -17,11 +17,11 @@ const Login = props => {
 
     const { email, password } = formData;
 
-    const handleInput = e => {
+    const handleInput = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmitForm = e => {
+    const handleSubmitForm = (e) => {
         e.preventDefault();
         doLogin(formData);
     };
@@ -36,7 +36,7 @@ const Login = props => {
             <p className={styles.subheader}>
                 <FontAwesomeIcon icon={faUser} /> Sign into Your Account
             </p>
-            <form onSubmit={e => handleSubmitForm(e)}>
+            <form onSubmit={(e) => handleSubmitForm(e)}>
                 <div className={styles.formGroup}>
                     <TextField
                         type="email"
@@ -46,7 +46,7 @@ const Login = props => {
                         fullWidth
                         variant="outlined"
                         value={email}
-                        onChange={e => handleInput(e)}
+                        onChange={(e) => handleInput(e)}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -58,7 +58,7 @@ const Login = props => {
                         fullWidth
                         variant="outlined"
                         value={password}
-                        onChange={e => handleInput(e)}
+                        onChange={(e) => handleInput(e)}
                     />
                 </div>
                 <Button type="submit" variant="contained" color="primary" disabled={inProgress}>
@@ -66,7 +66,7 @@ const Login = props => {
                 </Button>
             </form>
             <p className={styles.alternateRegister}>
-                Don't have an account?
+                Do not have an account?
                 <Link to="/register" className={styles.link}>
                     Sign Up
                 </Link>
@@ -81,7 +81,7 @@ Login.propTypes = {
     doLogin: PropTypes.func
 };
 
-export default inject(stores => ({
+export default inject((stores) => ({
     inProgress: stores.auth.inProgress,
     // errors: stores.auth.errors,
     doLogin: stores.auth.doLogin,
