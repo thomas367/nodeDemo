@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { inject, observer } from 'mobx-react';
 
-const Navbar = (props) => {
+const Navbar = props => {
     const { token, logout } = props;
 
     const handleLogout = () => {
@@ -53,7 +53,7 @@ Navbar.propTypes = {
     logout: PropTypes.func
 };
 
-export default inject((stores) => ({
+export default inject(stores => ({
     token: stores.common.token,
     logout: stores.auth.logout
 }))(observer(Navbar));

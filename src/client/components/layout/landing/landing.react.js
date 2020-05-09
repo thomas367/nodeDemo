@@ -7,7 +7,7 @@ import { inject, observer } from 'mobx-react';
 
 const cx = classNames.bind(styles);
 
-const Landing = (props) => {
+const Landing = props => {
     const { token } = props;
 
     if (token) {
@@ -20,8 +20,7 @@ const Landing = (props) => {
                 <div className={styles.landingInner}>
                     <h1 className={styles.header}>Developer Connector</h1>
                     <p className={styles.introMessag}>
-                        Create a developer profile/portfolio,
-                        share posts and get help from other developers
+                        Create a developer profile/portfolio, share posts and get help from other developers
                     </p>
                     <div className={styles.buttonsWrapper}>
                         <Link to="/register" className={cx('btn', 'btnPrimary')}>
@@ -41,6 +40,6 @@ Landing.propTypes = {
     token: PropTypes.string
 };
 
-export default inject((stores) => ({
+export default inject(stores => ({
     token: stores.common.token
 }))(observer(Landing));
