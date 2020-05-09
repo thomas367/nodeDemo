@@ -72,11 +72,13 @@ const Login = props => {
                     Sign Up
                 </Link>
             </p>
-            {messages &&
-                Array.isArray(messages) &&
-                messages.map((message, index) => (
-                    <AlertMessage key={index} alertType="error" message={message.msg} call={true} />
-                ))}
+            <div className={styles.alertWrapper}>
+                {messages &&
+                    Array.isArray(messages) &&
+                    messages.map((message, index) => (
+                        <AlertMessage key={index} alertType="error" message={message.msg} call={true} />
+                    ))}
+            </div>
         </div>
     );
 };
