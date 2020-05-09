@@ -4,11 +4,12 @@ import styles from 'client/components/auth/register/register.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Button, TextField } from '@material-ui/core';
+import AlertMessage from 'client/components/layout/alertMessage/alertMessage.react';
 import { Link, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-const Register = (props) => {
-    const { inProgress, token, doRegister } = props;
+const Register = props => {
+    const { inProgress, token, doRegister, messages } = props;
 
     const [formData, setFormData] = React.useState({
         name: '',
@@ -17,15 +18,13 @@ const Register = (props) => {
         confirmPassword: ''
     });
 
-    const {
-        name, email, password, confirmPassword
-    } = formData;
+    const { name, email, password, confirmPassword } = formData;
 
-    const handleInput = (e) => {
+    const handleInput = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmitForm = (e) => {
+    const handleSubmitForm = e => {
         e.preventDefault();
         const newUser = { name, email, password };
         // console.log(newUser);
@@ -42,7 +41,7 @@ const Register = (props) => {
             <p className={styles.subheader}>
                 <FontAwesomeIcon icon={faUser} /> Create Your Account
             </p>
-            <form onSubmit={(e) => handleSubmitForm(e)}>
+            <form onSubmit={e => handleSubmitForm(e)}>
                 <div className={styles.formGroup}>
                     <TextField
                         type="text"
@@ -52,7 +51,7 @@ const Register = (props) => {
                         fullWidth
                         variant="outlined"
                         value={name}
-                        onChange={(e) => handleInput(e)}
+                        onChange={e => handleInput(e)}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -64,7 +63,7 @@ const Register = (props) => {
                         fullWidth
                         variant="outlined"
                         value={email}
-                        onChange={(e) => handleInput(e)}
+                        onChange={e => handleInput(e)}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -76,7 +75,7 @@ const Register = (props) => {
                         fullWidth
                         variant="outlined"
                         value={password}
-                        onChange={(e) => handleInput(e)}
+                        onChange={e => handleInput(e)}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -88,7 +87,7 @@ const Register = (props) => {
                         fullWidth
                         variant="outlined"
                         value={confirmPassword}
-                        onChange={(e) => handleInput(e)}
+                        onChange={e => handleInput(e)}
                     />
                 </div>
                 <Button type="submit" variant="contained" color="primary" disabled={inProgress}>
@@ -101,6 +100,11 @@ const Register = (props) => {
                     Sign In
                 </Link>
             </p>
+            {messages &&
+                Array.isArray(messages) &&
+                messages.map((message, index) => (
+                    <AlertMessage key={index} alertType="error" message={message.msg} call={true} />
+                ))}
         </div>
     );
 };
@@ -108,11 +112,13 @@ const Register = (props) => {
 Register.propTypes = {
     inProgress: PropTypes.bool,
     token: PropTypes.string,
-    doRegister: PropTypes.func
+    doRegister: PropTypes.func,
+    messages: PropTypes.array
 };
 
-export default inject((stores) => ({
+export default inject(stores => ({
     inProgress: stores.auth.inProgress,
+    messages: stores.auth.messages,
     doRegister: stores.auth.doRegister,
     token: stores.common.token
 }))(observer(Register));
