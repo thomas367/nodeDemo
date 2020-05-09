@@ -10,11 +10,11 @@ class Api {
     }
 
     register(data) {
-        return this.api.post('/api/register', data).then((response) => response);
+        return this.api.post('/api/register', data).then(response => response);
     }
 
     login(data) {
-        return this.api.post('/api/login', data).then((response) => response);
+        return this.api.post('/api/login', data).then(response => response);
     }
 
     getProfile(token) {
@@ -24,7 +24,17 @@ class Api {
                     'x-auth-token': token
                 }
             })
-            .then((response) => response);
+            .then(response => response);
+    }
+
+    createProfile(data, token) {
+        return this.api
+            .post('/api/profile', data, {
+                headers: {
+                    'x-auth-token': token
+                }
+            })
+            .then(response => response);
     }
 }
 

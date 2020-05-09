@@ -12,10 +12,11 @@ class Profile {
     getProfile() {
         this.loading = true;
         return API.getProfile(Common.token)
-            .then((response) => {
+            .then(response => {
                 console.log(response);
+                // TODO: store user name
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log(err);
                 // const error = err.response.data.msg;
                 // if (error) {
@@ -24,6 +25,21 @@ class Profile {
             })
             .finally(() => {
                 this.loading = false;
+            });
+    }
+
+    @action.bound
+    submitProfile(data) {
+        return API.createProfile(data, Common.token)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(err => {
+                console.log(err.response);
+                // const error = err.response.data.msg;
+                // if (error) {
+                //     this.error = error;
+                // }
             });
     }
 }
