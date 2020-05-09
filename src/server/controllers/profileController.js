@@ -8,7 +8,7 @@ exports.getProfile = async (req, res) => {
             return res.status(400).json({ msg: 'There is no profile for this user' });
         }
 
-        res.json(profile.name);
+        res.json(profile.user.name);
     } catch (err) {
         console.log(err);
         res.status(500).send('Server error');
@@ -16,7 +16,7 @@ exports.getProfile = async (req, res) => {
 };
 
 exports.createOrUpdateProfile = async (req, res) => {
-    const { company, website, location, bio, status, skills, github, linkedin, facebook, twitter } = req.body;
+    const { company, website, location, status, skills, github, linkedin, facebook, twitter } = req.body;
 
     // Build profile object
     const profileFields = {};
@@ -24,7 +24,6 @@ exports.createOrUpdateProfile = async (req, res) => {
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;
     if (location) profileFields.location = location;
-    if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (skills) {
         profileFields.skills = skills.split(',').map(skill => skill.trim);
@@ -56,16 +55,16 @@ exports.createOrUpdateProfile = async (req, res) => {
 
 exports.getProfileById = async (req, res) => {
     try {
-        const profiles = await Profile.find({ user: req.params.userId }).populate('user', ['name', 'avatar']);
+        const profile = await Profile.find({ user: req.params.userId }).populate('user', ['name', 'avatar']);
 
         if (!profile) {
             return res.status(400).json({ msg: 'Porfile not found' });
         }
 
-        res.json(profiles);
+        res.json(profile);
     } catch (err) {
         console.log(err);
-        if (err.kind == 'ObjectId') {
+        if (err.kind === 'ObjectId') {
             return res.status(400).json({ msg: 'Profile not found' });
         }
         res.status(500).send('Server error');
