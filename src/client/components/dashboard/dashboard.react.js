@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import styles from 'client/components/dashboard/dashboard.scss';
 import classNames from 'classnames/bind';
 import Spinner from 'client/components/layout/spinner/spinner.react';
+import DashboardActions from 'client/components/dashboard/dashboardActions.react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { inject, observer } from 'mobx-react';
 
 const cx = classNames.bind(styles);
 
-const Dashboard = (props) => {
+const Dashboard = props => {
     const { getProfile, loading, profile } = props;
 
     useEffect(() => {
@@ -18,7 +19,7 @@ const Dashboard = (props) => {
     }, []);
 
     return (
-        <>
+        <div className={styles.container}>
             {loading && profile === null ? (
                 <Spinner />
             ) : (
@@ -28,18 +29,20 @@ const Dashboard = (props) => {
                         <FontAwesomeIcon icon={faUser} /> Welcome
                     </p>
                     {profile !== null ? (
-                        <>has</>
+                        <>
+                            <DashboardActions />
+                        </>
                     ) : (
                         <>
                             <p>You have not yet setup a profile, please add some info</p>
-                            <Link to="/create-profile" className={cx('btn', 'btnPrimary')}>
+                            <Link to="/createProfile" className={cx('btn', 'btnPrimary')}>
                                 Create profile
                             </Link>
                         </>
                     )}
                 </>
             )}
-        </>
+        </div>
     );
 };
 
@@ -50,7 +53,7 @@ Dashboard.propTypes = {
     // error
 };
 
-export default inject((stores) => ({
+export default inject(stores => ({
     getProfile: stores.profile.getProfile,
     loading: stores.profile.loading,
     profile: stores.profile.profile
