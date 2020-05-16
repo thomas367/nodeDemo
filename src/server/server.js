@@ -9,11 +9,11 @@ connectDB();
 
 app.use(express.json({ extended: false }));
 
+app.use('/api', routes);
+
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
-
-app.use('/api', routes);
 
 const PORT = process.env.PORT || 5000;
 

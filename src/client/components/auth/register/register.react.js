@@ -4,11 +4,12 @@ import styles from 'client/components/auth/register/register.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Button, TextField } from '@material-ui/core';
+import AlertMessage from 'client/components/layout/alertMessage/alertMessage.react';
 import { Link, Redirect } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
 const Register = props => {
-    const { inProgress, token, doRegister } = props;
+    const { inProgress, token, doRegister, messages } = props;
 
     const [formData, setFormData] = React.useState({
         name: '',
@@ -25,8 +26,7 @@ const Register = props => {
 
     const handleSubmitForm = e => {
         e.preventDefault();
-        const newUser = {name, email, password };
-        // console.log(newUser);
+        const newUser = { name, email, password };
         doRegister(newUser);
     };
 
@@ -99,6 +99,13 @@ const Register = props => {
                     Sign In
                 </Link>
             </p>
+            <div className={styles.alertWrapper}>
+                {messages &&
+                    Array.isArray(messages) &&
+                    messages.map((message, index) => (
+                        <AlertMessage key={index} alertType="error" message={message.msg} call={true} />
+                    ))}
+            </div>
         </div>
     );
 };
@@ -106,11 +113,13 @@ const Register = props => {
 Register.propTypes = {
     inProgress: PropTypes.bool,
     token: PropTypes.string,
-    doRegister: PropTypes.func
+    doRegister: PropTypes.func,
+    messages: PropTypes.array
 };
 
 export default inject(stores => ({
     inProgress: stores.auth.inProgress,
+    messages: stores.auth.messages,
     doRegister: stores.auth.doRegister,
     token: stores.common.token
 }))(observer(Register));
