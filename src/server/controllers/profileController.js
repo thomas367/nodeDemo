@@ -8,7 +8,7 @@ exports.getProfile = async (req, res) => {
             return res.status(400).json({ msg: 'There is no profile for this user' });
         }
 
-        res.json(profile.user.name);
+        res.json(profile);
     } catch (err) {
         console.log(err);
         res.status(500).send('Server error');
@@ -26,7 +26,7 @@ exports.createOrUpdateProfile = async (req, res) => {
     if (location) profileFields.location = location;
     if (status) profileFields.status = status;
     if (skills) {
-        profileFields.skills = skills.split(',').map(skill => skill.trim);
+        profileFields.skills = skills.split(',').map(skill => skill.trim());
     }
 
     // Build social object
@@ -83,8 +83,8 @@ exports.deleteProfile = async (req, res) => {
 };
 
 exports.createOrUpdateExperience = async (req, res) => {
-    const { title, company, location, from, to, current, description } = req.body;
-    const newExp = { title, company, location, from, to, current, description };
+    const { title, company, location, from, to, current } = req.body;
+    const newExp = { title, company, location, from, to, current };
 
     try {
         const profile = await Profile.findOne({ user: req.user.id });
@@ -113,8 +113,8 @@ exports.deleteExperience = async (req, res) => {
 };
 
 exports.createOrUpdateEducation = async (req, res) => {
-    const { school, degree, fieldofstudy, from, to, current, description } = req.body;
-    const newEdu = { school, degree, fieldofstudy, from, to, current, description };
+    const { school, degree, fieldofstudy, from, to, current } = req.body;
+    const newEdu = { school, degree, fieldofstudy, from, to, current };
 
     try {
         const profile = await Profile.findOne({ user: req.user.id });

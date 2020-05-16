@@ -27,7 +27,6 @@ const Register = props => {
     const handleSubmitForm = e => {
         e.preventDefault();
         const newUser = { name, email, password };
-        // console.log(newUser);
         doRegister(newUser);
     };
 
