@@ -17,7 +17,7 @@ const AlertMessage = props => {
         <Snackbar
             className={styles.snackbarStyle}
             open={open}
-            autoHideDuration={1500}
+            autoHideDuration={2500}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             onClose={handleClose}
         >

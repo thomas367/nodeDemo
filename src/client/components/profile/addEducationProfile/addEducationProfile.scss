@@ -23,41 +23,13 @@
     margin: 19px 0;
 }
 
-.formText {
-    display: block;
-    margin-top: 5px;
-    color: #888;
-}
-
-.toggleWrapper {
-    margin: 32px 0;
-}
-
-.socialInput {
-    display: flex;
-}
-
-.icon {
-    padding: 8px;
-}
-
-.github {
-    color: #24292e;
-}
-
-.twitter {
-    color: #38a1f3;
-}
-
-.facebook {
-    color: #3b5998;
-}
-
-.linkedIn {
-    color: #0077b5;
-}
-
 .link {
     text-decoration: none;
     color: #3f51b5;
+}
+.alertWrapper {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    left: auto;
 }

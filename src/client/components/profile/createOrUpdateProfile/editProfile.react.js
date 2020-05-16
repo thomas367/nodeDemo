@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styles from 'client/components/profile/createProfile/createProfile.scss';
+import styles from 'client/components/profile/createOrUpdateProfile/profile.scss';
 import classNames from 'classnames/bind';
 import { Button, TextField, Select, MenuItem, FormHelperText } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedinIn, faTwitter, faFacebook } from '@fortawesome/fontawesome-free-brands';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import AlertMessage from 'client/components/layout/alertMessage/alertMessage.react';
 import { inject, observer } from 'mobx-react';
 
 const cx = classNames.bind(styles);
 
-const CreateProfile = props => {
-    const { submitProfile } = props;
+const EditProfile = props => {
+    const { submitProfile, getProfile, loading, profile, messages } = props;
 
     const [formData, setFormData] = React.useState({
         company: '',
@@ -26,9 +27,27 @@ const CreateProfile = props => {
         linkedin: ''
     });
 
+    useEffect(() => {
+        if (profile === null) getProfile();
+
+        setFormData({
+            company: loading || !profile.company ? '' : profile.company,
+            website: loading || !profile.website ? '' : profile.website,
+            location: loading || !profile.location ? '' : profile.location,
+            status: loading || !profile.status ? '' : profile.status,
+            skills: loading || !profile.skills ? '' : profile.skills.join(','),
+            github: loading || !profile.github ? '' : profile.github,
+            twitter: loading || !profile.twitter ? '' : profile.twitter,
+            facebook: loading || !profile.facebook ? '' : profile.facebook,
+            linkendin: loading || !profile.linkendin ? '' : profile.linkendin
+        });
+        setSelectedStatus(profile.status);
+    }, []);
+
     const { company, website, location, status, skills, github, twitter, facebook, linkedin } = formData;
 
     const [toggleSocialInputs, setToggleSocialInputs] = React.useState(false);
+
     const [selectedStatus, setSelectedStatus] = React.useState(status);
 
     const handleChange = e => {
@@ -40,14 +59,19 @@ const CreateProfile = props => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    let history = useHistory();
     const handleSubmitForm = e => {
         e.preventDefault();
-        submitProfile(formData);
+        submitProfile(formData).then(response => {
+            if (response.status === 200) {
+                history.push('/dashboard');
+            }
+        });
     };
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.header}>Create Your Profile</h1>
+            <h1 className={styles.header}>Update Your Profile</h1>
             <p className={styles.subheader}>
                 <FontAwesomeIcon icon={faUser} /> Lets get some information to make your profile stand out
             </p>
@@ -133,6 +157,7 @@ const CreateProfile = props => {
                     >
                         Add Social Network Links
                     </Button>
+                    &nbsp;
                     <span>Optional</span>
                 </div>
                 {toggleSocialInputs && (
@@ -197,19 +222,33 @@ const CreateProfile = props => {
                 <Button type="submit" variant="contained" color="primary">
                     Submit
                 </Button>
-                &nbsp;
-                <Link to="/dashboard" className={styles.link}>
-                    Go Back
-                </Link>
             </form>
+            <Link to="/dashboard" className={styles.link}>
+                Go Back
+            </Link>
+            <div className={styles.alertWrapper}>
+                {messages &&
+                    Array.isArray(messages) &&
+                    messages.map((message, index) => (
+                        <AlertMessage key={index} alertType="error" message={message.msg} call={true} />
+                    ))}
+            </div>
         </div>
     );
 };
 
-CreateProfile.propTypes = {
-    submitProfile: PropTypes.func
+EditProfile.propTypes = {
+    submitProfile: PropTypes.func,
+    getProfile: PropTypes.func,
+    loading: PropTypes.bool,
+    profile: PropTypes.object,
+    messages: PropTypes.array
 };
 
 export default inject(stores => ({
-    submitProfile: stores.profile.submitProfile
-}))(observer(CreateProfile));
+    submitProfile: stores.profile.submitProfile,
+    getProfile: stores.profile.getProfile,
+    loading: stores.profile.loading,
+    profile: stores.profile.profile,
+    messages: stores.profile.messages
+}))(observer(EditProfile));
