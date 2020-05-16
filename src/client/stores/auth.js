@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import Common from 'client/stores/common';
+import User from 'client/stores/user';
 import API from 'helpers/client/api';
 
 class Auth {
@@ -37,6 +38,7 @@ class Auth {
     @action.bound
     logout() {
         Common.setToken(undefined);
+        User.setUsename(undefined);
     }
 
     @action.bound

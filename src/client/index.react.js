@@ -5,12 +5,14 @@ import { Provider } from 'mobx-react';
 import common from 'client/stores/common';
 import auth from 'client/stores/auth';
 import profile from 'client/stores/profile';
+import user from 'client/stores/user';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const stores = {
     common,
     auth,
-    profile
+    profile,
+    user
 };
 
 ReactDOM.render(
