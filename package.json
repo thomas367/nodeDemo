@@ -36,10 +36,12 @@
     "jsonwebtoken": "^8.5.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.1.8",
+    "moment": "^2.25.3",
     "mongoose": "^5.9.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-moment": "^0.9.7",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
