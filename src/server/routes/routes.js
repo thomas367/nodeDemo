@@ -7,10 +7,21 @@ const profileCtrl = require('../controllers/profileController');
 
 // Import middlewares
 const auth = require('../middleware/auth');
-const validation = require('../middleware/validations/authValidation');
+const authValidation = require('../middleware/validations/authValidation');
+const profileValidation = require('../middleware/validations/profileValidation');
 
-router.post('/login', validation.login, authCtrl.login);
-router.post('/register', validation.register, authCtrl.register);
-router.get('/profile', auth , profileCtrl.getProfile);
+// auth routes
+router.post('/login', authValidation.login, authCtrl.login);
+router.post('/register', authValidation.register, authCtrl.register);
+
+// profile routes
+router.get('/profile/me', auth, profileCtrl.getProfile);
+router.post('/profile', [auth, profileValidation.profile], profileCtrl.createOrUpdateProfile);
+router.get('/profile/user/:userId', profileCtrl.getProfileById);
+router.delete('/profile', auth, profileCtrl.deleteProfile);
+router.put('/profile/experience', [auth, profileValidation.experience], profileCtrl.createOrUpdateExperience);
+router.delete('/profile/experience/:expId', auth, profileCtrl.deleteExperience);
+router.put('/profile/education', [auth, profileValidation.education], profileCtrl.createOrUpdateEducation);
+router.delete('/profile/education/:eduId', auth, profileCtrl.deleteEducation);
 
 module.exports = router;

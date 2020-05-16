@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const gravatar = require('gravatar');
 require('dotenv').config();
 
 const User = require('../models/User');
