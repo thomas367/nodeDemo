@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'production',
-    entry: glob.sync(path.resolve(process.cwd(), 'src/client/**/*.scss')),
+    entry: glob.sync(path.resolve(process.cwd(), 'src/**/*.scss')),
     output: {
         path: path.join(__dirname, 'dist', 'css'),
         filename: 'bundle.js'
