@@ -8,7 +8,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: 
+    secure: fCR9yQn01U6lr6BQnfMFWHyAwld5d/g/bke2drU0fKg3dVuDTCP5jE0Zo9XtOdS+hy0R3r8UxUE10Edb9FAFtZny0GVXR3+GnLirMyzQfB0S93kHw6mnxiDzqzhFpi0mpsmljtysaIp2QtX3e/qvSzq0MAhEiQg8t8V48GLpBjJIwVyVPnBiQRRamd4sfuk8rQ8EDiuWGNy4SqKwBh8l8+gnRaExgR3HoD6tutotPP0x7EOuf5dLyN1krvaySUgxKbHlRR3l6zRDiaRPi0eaE0J5/L6C164iDmUc1X/JJwZR0Q9avurU6di43mY6GPfTTrPacyO0o4shTHAK6n4+xApc4IzEQKgfYi/7F1V+3+nb82EseCBpe2P+p7qym638vRrQWdeE8792foTbYNQFbp3MDhUuyiVL4OPsRev8m6VEHtKUQz2a9Kf+0oJOPPgUJALkdvnC6+Aqko7PS9hddDLyG/XqHYm1EH5dgFLdVQta35hA9ol8ttiUkgLfT7pdykseQeYZ2iRF+Jtswu0nQ4c3ZBpJirXWA7kIEVgqJHQ5lltZ2kwWUPTC1+uQoZeO2jWA6JbPn2RbPk+Olve0uDTjApSDXY2M7jt/DjRqEeHge+7B8sFyXEXoXPM3JH4qdpz+g0GvCWilPlu2rpgr3fM9Ecqk+zUwiHhDpRQ/YBI=
   app: dev-connector-test
   on:
     branch: develop
