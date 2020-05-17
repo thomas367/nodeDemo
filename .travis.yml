@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- 12.16.1
+install:
+- npm install
+script:
+- npm run build
+deploy:
+  provider: heroku
+  api_key:
+    secure: 
+  app: dev-connector-test
+  on:
+    branch: develop
