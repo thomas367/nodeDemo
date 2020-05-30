@@ -8,7 +8,7 @@ module.exports = {
     mode: 'production',
     entry: glob.sync(path.resolve(process.cwd(), 'src/**/*.scss')),
     output: {
-        path: path.join(__dirname, 'dist', 'css'),
+        path: path.join(__dirname, '/public/dist'),
         filename: 'bundle.js'
     },
     resolve: {
@@ -50,8 +50,8 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist', 'css')],
-            cleanAfterEveryBuildPatterns: [path.join(__dirname, 'dist', 'css', 'bundle.js')]
+            cleanOnceBeforeBuildPatterns: [path.join(__dirname, '/public/dist')],
+            cleanAfterEveryBuildPatterns: [path.join(__dirname, '/public/dist', 'bundle.js')]
         }),
         new UglifyJSPlugin(),
         new MiniCssExtractPlugin({

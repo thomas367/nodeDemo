@@ -5,7 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     entry: './src/client/index.react.js',
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, '/public/dist'),
         filename: 'bundle.js',
         publicPath: '/'
     },
@@ -36,7 +36,7 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                localIdentName: '[local]--[hash:base64:5]'
+                                localIdentName: '[hash:base64:5]'
                             },
                             sourceMap: false
                         }
