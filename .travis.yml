@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- 12.16.1
+install:
+- npm install
+script:
+- npm run build
+deploy:
+  provider: heroku
+  api_key:
+    secure: W9q9s/yeiSdusYc+rtIRO093RDWoRktqdzIKqZ9xuuhXcJB2Ty6wW5mP6qn4vSUrnvgvllbtpiwW0hjyPB3cSspKJI3M8qunJJKkh91ve958GOVZt9KKNYrF8s/Wfo7MCGWg6EPCwGxAYMsZmkcfRxye+IhcQzTn6mykPK64CSOKABbkkGX50Cusw+kfiKZvfV0BA60l9LaLJx6VIpmNkZsYfd1Mv4R804KOn3diQf3J9z1n20heL0zxaevOIuNbWth0292KuvEpk7c9aGl2lS3MkD4jKaZD9v9hkdDDwgiE6O2B36HNKfXYn2NaE7C254m7TeBMt4mykNbJGkfQzEud5ZU2Bf9mpAiZQCqwUmLSoKtfEbg7X8wbkQAjuEpqPJPzITWsbzXPrf1voFN9G0cZ5IIU6Oqfev0Z0PB/iyjxqQQi7qknzIPTGGGUs+xOIrzkOWrGE0KRr1esxBlP7vIBSFMi2U6hu4SjZ740eHcncnIbUOdduh/WuszP97ICSTKte95ta/jjXj8JYSdTMC7owBdrgrho/3H6/cH9G7BJfKTsqTSjfv1Dhdj1cU5/6iaKHVX7Scw16HHil4dyYGobm3ISqfMFS6yGiHWsL+ySIzn0J8Cp7iYP8InTYUDRS3zqplKvNoB3Q3WeBp6OL7fXcDc6/+7pmYWV11m6cUo=
+  app: dev-connector-test
+  on:
+    branch: develop

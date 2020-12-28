@@ -1,13 +1,15 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const glob = require('glob');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: './src/client/index.react.js',
-    devtool: 'cheap-module-eval-source-map',
+    mode: 'production',
+    entry: glob.sync(path.resolve(process.cwd(), 'src/**/*.scss')),
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/'
+        path: path.join(__dirname, '/public/dist'),
+        filename: 'bundle.js'
     },
     resolve: {
         modules: [
@@ -19,57 +21,46 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: ['babel-loader']
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: ['babel-loader', 'eslint-loader']
-            },
-            {
                 test: /\.[s]css$/,
                 use: [
-                    { loader: 'style-loader' },
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                localIdentName: '[local]--[hash:base64:5]'
+                                localIdentName: '[hash:base64:5]'
                             },
-                            sourceMap: true
+                            sourceMap: false
                         }
                     },
                     {
                         loader: 'sass-loader',
                         options: {
-                            sourceMap: true
+                            sourceMap: false
                         }
                     }
                 ]
             },
             {
                 test: /\.png|jpg$/,
-                include: path.join(__dirname, 'assets/images'),
-                loader: ['file-loader']
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'images/',
+                    publicPath: '/dist/images'
+                }
             }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html'
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [path.join(__dirname, '/public/dist')],
+            cleanAfterEveryBuildPatterns: [path.join(__dirname, '/public/dist', 'bundle.js')]
+        }),
+        new UglifyJSPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css'
         })
     ],
-    devServer: {
-        contentBase: path.join(__dirname, 'public'),
-        historyApiFallback: true,
-        port: 3000,
-        open: true,
-        proxy: {
-            '/api/*': 'http://localhost:5000'
-        }
-    },
     stats: {
         modules: false,
         usedExports: false,

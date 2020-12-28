@@ -1,11 +1,11 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: './src/client/index.react.js',
-    devtool: 'cheap-module-eval-source-map',
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, '/public/dist'),
         filename: 'bundle.js',
         publicPath: '/'
     },
@@ -36,40 +36,35 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                localIdentName: '[local]--[hash:base64:5]'
+                                localIdentName: '[hash:base64:5]'
                             },
-                            sourceMap: true
+                            sourceMap: false
                         }
                     },
                     {
                         loader: 'sass-loader',
                         options: {
-                            sourceMap: true
+                            sourceMap: false
                         }
                     }
                 ]
             },
             {
                 test: /\.png|jpg$/,
-                include: path.join(__dirname, 'assets/images'),
-                loader: ['file-loader']
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'images/',
+                    publicPath: '/dist/images'
+                }
             }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html'
-        })
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['dist']
+        }),
+        new UglifyJSPlugin()
     ],
-    devServer: {
-        contentBase: path.join(__dirname, 'public'),
-        historyApiFallback: true,
-        port: 3000,
-        open: true,
-        proxy: {
-            '/api/*': 'http://localhost:5000'
-        }
-    },
     stats: {
         modules: false,
         usedExports: false,
